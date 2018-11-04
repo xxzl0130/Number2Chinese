@@ -17,7 +17,7 @@ string number2Chinese(string number)
 		chinese += "¸º";
 		number.erase(number.begin());
 	}
-	auto pos = number.find('.');
+	size_t pos = number.find('.');
 	if(pos != string::npos)
 	{
 		string integer(number.begin(), number.begin() + pos);
@@ -36,9 +36,9 @@ string integer2Chinese(const string& number)
 	string chinese;
 
 	auto size = number.length();
-	for(auto i = 0;i < number.length();++i)
+	for(size_t i = 0;i < number.length();++i)
 	{
-		const auto &n = number[i];
+		const char &n = number[i];
 		if(n != '0')
 		{
 			chinese += numberChinese[n - '0'];
@@ -97,9 +97,9 @@ string fraction2Chinese(const string& number)
 {
 	string chinese;
 
-	for(const auto& item : number)
+	for(size_t i = 0;i < number.size();++i)
 	{
-		chinese += numberChinese[item - '0'];
+		chinese += numberChinese[number[i] - '0'];
 	}
 
 	return chinese;
