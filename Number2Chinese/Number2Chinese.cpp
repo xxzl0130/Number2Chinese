@@ -12,13 +12,13 @@ string fraction2Chinese(const string& number);
 string number2Chinese(string number)
 {
 	string chinese;
-	if(number[0] == '-')
+	if (number[0] == '-')
 	{
 		chinese += "负";
 		number.erase(number.begin());
 	}
-	auto pos = number.find('.');
-	if(pos != string::npos)
+	size_t pos = number.find('.');
+	if (pos != string::npos)
 	{
 		string integer(number.begin(), number.begin() + pos);
 		string fraction(number.begin() + pos + 1, number.end());
@@ -36,53 +36,57 @@ string integer2Chinese(const string& number)
 	string chinese;
 
 	auto size = number.length();
-	for(auto i = 0;i < number.length();++i)
+	for (size_t i = 0; i < number.length(); ++i)
 	{
-		const auto &n = number[i];
-		if(n != '0')
+		const char &n = number[i];
+		if (n != '0')
 		{
 			chinese += numberChinese[n - '0'];
 		}
 		else
 		{
-			if(size % 4 == 3 && (number[i + 1] != '0' || number[i + 2] != '0'))
+			if (size % 4 == 3 && (number[i + 1] != '0' || number[i + 2] != '0'))
 			{
 				chinese += "零";
 			}
-			else if(size % 4 == 2 && number[i - 1] != '0' && number[i + 1] != '0')
+			else if (size % 4 == 2 && number[i - 1] != '0' && number[i + 1] != '0')
+			{
+				chinese += "零";
+			}
+			else if (i == 0)
 			{
 				chinese += "零";
 			}
 		}
-		if(size % 4 == 1)
+		if (size % 4 == 1)
 		{
-			if(size / 4 == 1 && 
+			if (size / 4 == 1 &&
 				(number[i] != '0' || number[i - 1] != '0' || number[i - 2] != '0' || number[i - 3] != '0'))
 			{
 				chinese += "万";
 			}
-			if(size / 4 == 2 && 
+			if (size / 4 == 2 &&
 				(number[i] != '0' || number[i - 1] != '0' || number[i - 2] != '0' || number[i - 3] != '0'))
 			{
 				chinese += "亿";
 			}
-			if(size / 4 == 3 &&
+			if (size / 4 == 3 &&
 				(number[i] != '0' || number[i - 1] != '0' || number[i - 2] != '0' || number[i - 3] != '0'))
 			{
 				chinese += "兆";
 			}
 		}
-		if(n != '0')
+		if (n != '0')
 		{
-			if(size % 4 == 2)
+			if (size % 4 == 2)
 			{
 				chinese += "十";
 			}
-			else if(size % 4 == 3)
+			else if (size % 4 == 3)
 			{
 				chinese += "百";
 			}
-			else if(size % 4 == 0)
+			else if (size % 4 == 0)
 			{
 				chinese += "千";
 			}
@@ -97,9 +101,9 @@ string fraction2Chinese(const string& number)
 {
 	string chinese;
 
-	for(const auto& item : number)
+	for (size_t i = 0; i < number.size(); ++i)
 	{
-		chinese += numberChinese[item - '0'];
+		chinese += numberChinese[number[i] - '0'];
 	}
 
 	return chinese;
